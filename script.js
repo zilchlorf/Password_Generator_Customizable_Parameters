@@ -1,12 +1,21 @@
+
+//HTML ID variable association:
+
 var generateBtn = document.querySelector("#generate");
 var passwordTextarea = document.querySelector("#password");
+
+//Establish Const for password criteria:
 
 const lowercaseCharacters = "abcdefghijklmnopqrstuvwxyz";
 const uppercaseCharacters = "ABCDEFGHIJKLMNOPQRSTUZWXYZ";
 const numericalCharacters = "0123456789";
 const specialCharacters = "!#$%&()*+/:;<=>?@^_{}~";
 
+// Initiate password generation prompts:
+
 generateBtn.addEventListener("click", generatePassword);
+
+//Password generation function:
 
 function generatePassword() {
 
@@ -33,7 +42,6 @@ function generatePassword() {
 
     if (UserChoiceUpperCase) {
         PasswordCharSet += uppercaseCharacters;
-
     }
 
     let UserChoiceNumbers = confirm("Include numbers in password?");
@@ -41,7 +49,6 @@ function generatePassword() {
 
     if (UserChoiceNumbers) {
         PasswordCharSet += numericalCharacters;
-
     }
 
     let UserChoiceSymbols = confirm("Include symbols in password?");
@@ -49,19 +56,22 @@ function generatePassword() {
 
     if (UserChoiceSymbols) {
         PasswordCharSet += specialCharacters;
-
-
     }
 
     if (PasswordCharSet === "") {
         alert("Please select at least one type of character to be included in password");
     }
+
     for (var i = 0; i < UserPasswordLength; i++) {
         UserGeneratedPassword += PasswordCharSet.charAt(Math.floor(Math.random() * PasswordCharSet.length));
     };
+
+    //Write completed password to text area of HTML page
+
     localStorage.setItem("password", UserGeneratedPassword);
     let UserGeneratedPasswordStr = localStorage.getItem("password");
     passwordTextarea.textContent = UserGeneratedPasswordStr;
+    console.log('User random password is:', UserGeneratedPasswordStr)
 
 }
 
