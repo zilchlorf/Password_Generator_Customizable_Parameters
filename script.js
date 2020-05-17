@@ -1,30 +1,12 @@
-// Assignment Code
 var generateBtn = document.querySelector("#generate");
+var passwordTextarea = document.querySelector("#password");
 
-// Write password to the #password input
-function writePassword() {
-    var password = generatePassword();
-    var passwordText = document.querySelector("#password");
+const lowercaseCharacters = "abcdefghijklmnopqrstuvwxyz";
+const uppercaseCharacters = "ABCDEFGHIJKLMNOPQRSTUZWXYZ";
+const numericalCharacters = "0123456789";
+const specialCharacters = "!#$%&()*+/:;<=>?@^_{}~";
 
-    passwordText.value = password;
-
-}
-function getRandomLower() {
-    return String.fromCharCode((Math.floor(Math.random() * 26) + 97));
-}
-
-function getRandomUpper() {
-    return String.fromCharCode((Math.floor(Math.random() * 26) + 65));
-}
-
-function getRandomNumber() {
-    return String.fromCharCode((Math.floor(Math.random() * 10) + 48));
-}
-
-function getRandomSymbol() {
-    const symbols = '&!#@$%'
-    return symbols[Math.floor(Math.random() * symbols.length)]
-}
+generateBtn.addEventListener("click", generatePassword);
 
 function generatePassword() {
 
@@ -43,14 +25,14 @@ function generatePassword() {
     console.log('User wants lowercase letters:', UserChoiceLowerCase)
 
     if (UserChoiceLowerCase) {
-        PasswordCharSet += getRandomLower();
+        PasswordCharSet += lowercaseCharacters;
     }
 
     let UserChoiceUpperCase = confirm("Include uppercase letters in password?");
     console.log('User wants uppercase letters:', UserChoiceUpperCase)
 
     if (UserChoiceUpperCase) {
-        PasswordCharSet += getRandomUpper();
+        PasswordCharSet += uppercaseCharacters;
 
     }
 
@@ -58,7 +40,7 @@ function generatePassword() {
     console.log('User wants numbers:', UserChoiceNumbers)
 
     if (UserChoiceNumbers) {
-        PasswordCharSet += getRandomNumber();
+        PasswordCharSet += numericalCharacters;
 
     }
 
@@ -66,7 +48,7 @@ function generatePassword() {
     console.log('User wants symbols:', UserChoiceSymbols)
 
     if (UserChoiceSymbols) {
-        PasswordCharSet += getRandomSymbol();
+        PasswordCharSet += specialCharacters;
 
 
     }
@@ -74,18 +56,16 @@ function generatePassword() {
     if (PasswordCharSet === "") {
         alert("Please select at least one type of character to be included in password");
     }
-
     for (var i = 0; i < UserPasswordLength; i++) {
-        UserGeneratedPassword += PasswordCharSet.charAt(PasswordCharSet.length)
+        UserGeneratedPassword += PasswordCharSet.charAt(Math.floor(Math.random() * PasswordCharSet.length));
     };
-
+    localStorage.setItem("password", UserGeneratedPassword);
+    let UserGeneratedPasswordStr = localStorage.getItem("password");
+    passwordTextarea.textContent = UserGeneratedPasswordStr;
 
 }
 
 
-
-// Add event listener to generate button
-generateBtn.addEventListener("click", writePassword);
 
 
 
